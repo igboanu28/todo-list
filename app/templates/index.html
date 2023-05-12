@@ -1,0 +1,64 @@
+{% extends "base.html"%}
+{% from 'bootstrap5/form.html' import render_form, render_field %}
+
+{% block app_content %}
+    <section class="vh-100" style="background-color: #eee;">
+  <h1 class="text-center text-decoration-underline">Hi, {{ current_user.username}}</h1>
+
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+              <div class="card rounded-3">
+                <div class="card-body p-4">
+      
+                  <h4 class="text-center my-3 pb-3">To Do App</h4>
+      
+                  <form action="/add" method="post" class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+        
+                    <div class="col-12">
+                      <div class="form-outline">
+                        <label>Enter a task here</label>
+                        <input type="text" name="name" min="0" required>
+                        <button type="submit" class="btn btn-primary">Add task</button>
+                      </div>
+                    </div>
+      
+    
+                  </form>
+       
+                  <table class="table mb-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%for todo in todo_list%}
+                      <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{todo.name}}</td>
+                        {%if todo.complete==False%}
+                        <td>In progress</td>
+                        {%else%}
+                        <td>Complete</td>
+                        {%endif%}
+                        <td>
+                          <a href="/update/{{todo.task_id}}" class="btn btn-success ms-1">Update</a>
+                          </td>
+                          <td>
+                          <a href="/delete/{{todo.task_id}}" class="btn btn-danger">Delete</a>
+                        </td>
+                      </tr>
+                      {%endfor%}
+                    </tbody>
+                  </table>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endblock %}
